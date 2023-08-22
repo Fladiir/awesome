@@ -1,0 +1,1 @@
+# Awesomewm configuration and themes
