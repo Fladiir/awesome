@@ -134,7 +134,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     awful.tag(beautiful.tagnames, s, awful.layout.layouts[1])
-
+		
     -- Status Bar
     require("themes." .. currtheme .. ".bars.bars")(s)
 end)

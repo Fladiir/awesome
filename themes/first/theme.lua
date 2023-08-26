@@ -12,6 +12,7 @@ local themes_path = "~/.config/awesome/themes/"
 
 local theme = {}
 
+theme.font_nosize						= "DejavuSansMono Nerd Font Bold"
 theme.font                  = "DejavuSansMono Nerd Font Bold 10"
 theme.taglist_buttons_font  = "DejavuSansMono Nerd Font" -- Size applied in taglist.lua
 theme.textclock_font        = "DejavuSansMono Nerd Font Bold 12"
@@ -38,6 +39,14 @@ theme.wibar_top_padding = dpi(5)
 theme.bar_bg = "#0b0c10"
 theme.bar_fg = "#ffffff"
 theme.hoverbg = "#1f222e"
+theme.accent = "#ee2244"
+theme.fg_disabled = "#666666"
+
+-- [[ WIDGETS
+
+theme.calendar_popup_width = dpi(500) 
+
+-- ]]
 
 theme.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }
 

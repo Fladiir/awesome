@@ -5,19 +5,15 @@ local naughty = require("naughty")
 local animation = require("modules.animation")
 local beautiful = require("beautiful")
 
-
 textclock_w = class()
 
 function textclock_w:init(args)
 
     self.font = args.font
 		self.screen = args.screen
-
-		local month_calendar = awful.widget.calendar_popup.month({
-			screen = args.screen
-		})
-
-    local w = wibox.widget({
+		self.calendar_toggled = false
+    
+		local w = wibox.widget({
 				{
 						font    = self.font,
 						widget  = wibox.widget.textclock
@@ -34,8 +30,6 @@ function textclock_w:init(args)
 			self.hover_lost_animation:set(helpers.hex_to_rgb(beautiful.bar_bg))
 		end)
 
-		w:connect_signal("button::press", function(button)
-		end)
 
 		self.hover_animation = animation:new({
 			pos = helpers.hex_to_rgb(beautiful.bar_bg),
@@ -56,8 +50,35 @@ function textclock_w:init(args)
 		})
 
 
-		month_calendar:attach(w.widget, "t", { on_hover = false })
-		-- month_calendar:attach( w.widget, "tr" )
+		local calendar = require("widgets.calendar")(self.screen)
+		
+		self.on_toggle = animation:new({
+			pos = -(calendar.height + 
+				beautiful.wibar_size + beautiful.wibar_top_padding + beautiful.wibar_bot_padding),
+			duration = 0.5,
+			easing = animation.easing.inOutQuad,
+			update = function(self, pos)
+				calendar.y = pos
+			end,
+		})
+		calendar.y = -500
+
+		w:connect_signal("button::press", function(button)
+			if self.calendar_toggled == true then
+				self.on_toggle:set(-(calendar.height + 
+					beautiful.wibar_size + beautiful.wibar_top_padding + beautiful.wibar_bot_padding))
+				self.calendar_toggled = false
+				self.screen:emit_signal("calendar::closed")
+			else
+				calendar:move_next_to(mouse.current_widget_geometry)	
+				self.on_toggle:set(
+					beautiful.wibar_size + 
+					beautiful.wibar_top_padding + 
+					beautiful.wibar_bot_padding )
+				self.calendar_toggled = true
+			end
+		end)
+
     return w
 end
 

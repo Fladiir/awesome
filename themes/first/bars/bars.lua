@@ -1,9 +1,11 @@
 local wibox = require("wibox")
 local awful = require("awful")
 local beautiful = require("beautiful")
-
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 
 local bar_w = class()
+
 
 function bar_w:init(s)
    
@@ -28,7 +30,10 @@ function bar_w:init(s)
 						expand = "none",
 						-- forced_height = beautiful.wibar_size,
 						{ -- Left widgets
-								mytextclock,
+								{
+									left = dpi(10),
+									widget = wibox.container.margin
+								},
 								expand = "none",
 								layout = wibox.layout.fixed.horizontal,
 						},
@@ -37,6 +42,7 @@ function bar_w:init(s)
 								layout = wibox.layout.fixed.horizontal,
 						},
 						{ -- Right widgets
+								mytextclock,
 								layout = wibox.layout.fixed.horizontal,
 								expand = "none",
 						},
