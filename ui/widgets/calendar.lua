@@ -6,10 +6,12 @@ local gears				= require("gears")
 local beautiful 	= require("beautiful")
 local helpers 		= require("../helpers")
 local animation		=	require("modules.animation")
-local keybinds		= require("keys")
+local keybinds		= require("configurations.keys")
 local xresources 	= require("beautiful.xresources")
 local dpi 				= xresources.apply_dpi
 
+-- UI INCLUDES
+local tbtn				= require("ui.buttons.text")
 
 local calendar_w = class()
 
@@ -34,6 +36,23 @@ local function getMonthDays(month, year)
 	
 end
 
+local function day_widget(text, args)
+	local w = wibox.widget({
+			{
+				halign 	= "center",
+				valign 	= "center",
+				font		= beautiful.font_nosize .. " 12",
+				text 		= text,
+				widget 	= wibox.widget.textbox
+			},
+			forced_height = dpi(60),
+			bg 			= args.bg,
+			fg			= args.fg,
+			widget 	= wibox.container.background
+		})
+
+	return w
+end
 
 function calendar_w:set_current_date()
 	self:set_date(os.date("*t"))
@@ -58,10 +77,10 @@ end
 function calendar_w:set_date(date)
 	self.date = date
 
-
 	local time = os.time({ year = date.year, month = date.month, day = 1})
-	self.cal.widget.widget.children[1].second.text = os.date("%B %Y", time)
-	self.cal.widget.widget.children[2].widget:reset()
+
+	self.calendar_top_section.second.text = os.date("%B %Y", time)
+	self.calendar_grid:reset()
 	self:week_days()
 	self:get_month_days()
 end
@@ -70,98 +89,51 @@ function calendar_w:get_month_days()
 	local current = os.date("*t")
 
 	local first_week_day = os.date("*t", os.time({ year = self.date.year, month = self.date.month, day = 1}))
-	local first_day_prev = getMonthDays(self.date.month - 1, self.date.year) - (first_week_day.wday - 2)
-	-- DAYS OF THE WEEK (0 - 6 Su - Sa) -1 because 1 - 7 and -1 because Mo - Su
+	local first_day_prev = getMonthDays(self.date.month - 1, self.date.year) - (first_week_day.wday - 1)
+
 	for i = 1, first_week_day.wday - 1 do
-		self.cal.widget.widget.children[2].widget:add(wibox.widget({
-			{
-				halign 	= "center",
-				valign 	= "center",
-				font		= beautiful.font_nosize .. " 12",
-				text 		= first_day_prev + i,
-				widget 	= wibox.widget.textbox
-			},
-			forced_height = dpi(60),
-			bg 			= beautiful.bar_bg,
-			fg			= beautiful.fg_disabled,
-			widget 	= wibox.container.background
-		}))
+		self.calendar_grid:add(day_widget(first_day_prev + i, { bg = beautiful.bar_bg, fg = beautiful.fg_disabled }))
 	end
 
 	for i = 1, getMonthDays(self.date.month, self.date.year) do
 		if (current.year == self.date.year and current.month == self.date.month and current.day == i) then
-			self.cal.widget.widget.children[2].widget:add(wibox.widget({
-				{
-					halign 	= "center",
-					valign 	= "center",
-					font		= beautiful.font_nosize .. " 12",
-					text 		= i,
-					widget 	= wibox.widget.textbox
-				},
-				forced_height = dpi(60),
-				bg 			= beautiful.accent,
-				fg			= beautiful.bar_fg,
-				widget 	= wibox.container.background
-			}))
+			self.calendar_grid:add(day_widget(i, { bg = beautiful.accent, fg = beautiful.bar_fg }))
 		else
-			self.cal.widget.widget.children[2].widget:add(wibox.widget({
-				{
-					halign 	= "center",
-					valign 	= "center",
-					font		= beautiful.font_nosize .. " 12",
-					text 		= i,
-					widget 	= wibox.widget.textbox
-				},
-				forced_height = dpi(60),
-				bg 			= beautiful.bar_bg,
-				fg			= beautiful.bar_fg,
-				widget 	= wibox.container.background
-			}))
+			self.calendar_grid:add(day_widget(i, { bg = beautiful.bar_bg, fg = beautiful.bar_fg }))
 		end
 	end
 
 	for i = 1, 42 - (getMonthDays(self.date.month, self.date.year) + (first_week_day.wday - 1)) do
-		self.cal.widget.widget.children[2].widget:add(wibox.widget({
-			{
-				halign 	= "center",
-				valign 	= "center",
-				font		= beautiful.font_nosize .. " 12",
-				text 		= i,
-				widget 	= wibox.widget.textbox
-			},
-			forced_height = dpi(60),
-			bg 			= beautiful.bar_bg,
-			fg			= beautiful.fg_disabled,
-			widget 	= wibox.container.background
-		}))
+		self.calendar_grid:add(day_widget(i, { bg = beautiful.bar_bg, fg = beautiful.fg_disabled }))
 	end
 end
 
 function calendar_w:week_days()
-	local days = {"Su", "Mo" ,"Tu", "We", "Th", "Fr", "Sa" }
 	for i=1, 7 do
-		self.cal.widget.widget.children[2].widget:add(wibox.widget({
-			{
-				halign 	= "center",
-				valign 	= "center",
-				font		= beautiful.font_nosize .. " 12",
-				text 		= days[i],
-				widget 	= wibox.widget.textbox
-			},
-			forced_height = dpi(60),
-			bg 			= beautiful.bar_bg,
-			fg			= beautiful.bar_fg,
-			widget 	= wibox.container.background
-		}))
+		self.calendar_grid:add(
+			day_widget(beautiful.weekdays_layout[i], { bg = beautiful.bar_bg, fg = beautiful.bar_fg })
+		)
 	end
 end
+
+function calendar_w:get_anchor()
+	if self.position == "left" then
+		return "front"
+	elseif self.position == "center" then
+		return "middle"
+	elseif self.position == "right" then
+		return "back"
+	else
+		return "front"
+	end
+end
+
 function calendar_w:init(s, args)
 
-	self.date = os.date("*t")
 
-	local nbtn	= require("widgets.buttons.text")({ 
-		text = ">",
-		font = beautiful.font_nosize .. " 12",
+	local nbtn	= tbtn({ 
+		text = "",
+		font = beautiful.font_nosize .. " 20",
 		bg = beautiful.bar_bg,
 		fg = beautiful.bar_fg,
 		ml = dpi(5),
@@ -173,9 +145,9 @@ function calendar_w:init(s, args)
 		end
 	})
 
-	local pbtn	= require("widgets.buttons.text")({ 
-		text = "<",
-		font = beautiful.font_nosize .. " 12",
+	local pbtn	= tbtn({ 
+		text = "",
+		font = beautiful.font_nosize .. " 20",
 		bg = beautiful.bar_bg,
 		fg = beautiful.bar_fg,
 		ml = dpi(5),
@@ -188,7 +160,9 @@ function calendar_w:init(s, args)
 	})
 
 
-	local cal = awful.popup {
+	self.position = args.position
+
+	self.cal = awful.popup {
 		ontop								= true,
 		visible							= true,
 		type								= "dock",
@@ -197,7 +171,7 @@ function calendar_w:init(s, args)
 		fg									= beautiful.bar_fg,
 		minimum_width				= beautiful.calendar_popup_width,
 		maximum_width				= beautiful.calendar_popup_width,
-		preferred_anchors		= "back",
+		preferred_anchors		= self:get_anchor(),
 		widget = wibox.widget({
 			{
 				{
@@ -232,14 +206,18 @@ function calendar_w:init(s, args)
 		})
 	}
 	
-	self.cal = cal
+	self.date = os.date("*t")
+	self.calendar_top_section = self.cal.widget.widget.children[1]
+	self.calendar_grid 				= self.cal.widget.widget.children[2].widget
+
+	-- INITIALIZATION
 	self:week_days()
 	self:get_month_days()
 
 	s:connect_signal("calendar::closed", function() 
 		self:set_current_date() 
 	end)
-	return cal
+	return self.cal
 end
 
 return calendar_w

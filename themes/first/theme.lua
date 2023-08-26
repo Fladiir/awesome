@@ -2,12 +2,9 @@
 -- Default awesome theme --
 ---------------------------
 
-local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
-local naughty = require("naughty")
 local dpi = xresources.apply_dpi
 
-local gfs = require("gears.filesystem")
 local themes_path = "~/.config/awesome/themes/"
 
 local theme = {}
@@ -43,9 +40,15 @@ theme.accent = "#ee2244"
 theme.fg_disabled = "#666666"
 
 -- [[ WIDGETS
-
+-- TEXTCLOCk
+theme.textclock_position = "center"
+-- CALENDAR
+theme.weekdays_layout = {"Su", "Mo" ,"Tu", "We", "Th", "Fr", "Sa" }
+theme.calendar_position = theme.textclock_position
 theme.calendar_popup_width = dpi(500) 
 
+-- TAGLIST
+theme.taglist_position	= "left"
 -- ]]
 
 theme.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }
@@ -63,15 +66,6 @@ theme.taglist_empty_width 		= dpi(8)
 theme.taglist_occupied_width 	= dpi(16)
 theme.taglist_selected_width 	= dpi(32)
 
-theme.menu_submenu_icon = themes_path.."default/submenu.png"
-theme.menu_height = dpi(15)
-theme.menu_width  = dpi(100)
-
-
-theme.titlebar_close_button_normal = themes_path.."first/titlebar/close.png"
-theme.titlebar_close_button_focus  = themes_path.."first/titlebar/close_red_alt.png"
-theme.titlebar_maximized_button_normal_inactive = themes_path.."first/titlebar/maximize_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = themes_path.."first/titlebar/maximize_inactive.png"
 
 theme.wallpaper = themes_path.."first/background.jpg"
 

@@ -1,6 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local keybinds = require("keys")
+local keybinds = require("configurations.keys")
 
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -55,7 +55,7 @@ awful.rules.rules = {
     -- Set Firefox to always map on the tag named "2" on screen 1.
     { rule = { class = "Firefox" },
        properties = { screen = 1, tag = "2", floating = true } },
-    { rule = { class = "Discord" },
+    { rule = { class = "discord" },
        properties = { screen = 1, tag = "3" } },
 }
 

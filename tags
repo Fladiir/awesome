@@ -35,16 +35,18 @@ abort	modules/animation/init.lua	/^function animation:abort(reset)$/;"	f	unknown
 calculatePAS	modules/animation/tween.lua	/^local function calculatePAS(p, a, c, d)$/;"	f
 checkNewParams	modules/animation/tween.lua	/^local function checkNewParams(initial, duration, subject, target, easing)$/;"	f
 checkSubjectAndTargetRecursively	modules/animation/tween.lua	/^local function checkSubjectAndTargetRecursively(subject, target, path)$/;"	f
-class	rc.lua	/^function class(base)$/;"	f
+class	helpers.lua	/^function class(base)$/;"	f
 clip	helpers.lua	/^local function clip(num, min_num, max_num)$/;"	f
 colorize_text	helpers.lua	/^function helpers.colorize_text(txt, fg, alpha)$/;"	f	unknown:helpers
 copyTables	modules/animation/tween.lua	/^local function copyTables(destination, keysTable, valuesTable)$/;"	f
-create_callback	widgets/tags.lua	/^		create_callback = function(item, tag, index, _)$/;"	f
-decrease_month	widgets/calendar.lua	/^function calendar_w:decrease_month()$/;"	f	unknown:calendar_w
+create_callback	ui/widgets/tags.lua	/^		create_callback = function(item, tag, index, _)$/;"	f
+day_widget	ui/widgets/calendar.lua	/^local function day_widget(text, args)$/;"	f
+decrease_month	ui/widgets/calendar.lua	/^function calendar_w:decrease_month()$/;"	f	unknown:calendar_w
 fire	modules/animation/subscribable.lua	/^	function ret:fire(...)$/;"	f	unknown:ret
 getEasingFunction	modules/animation/tween.lua	/^local function getEasingFunction(easing)$/;"	f
-getMonthDays	widgets/calendar.lua	/^local function getMonthDays(month, year)$/;"	f
-get_month_days	widgets/calendar.lua	/^function calendar_w:get_month_days()$/;"	f	unknown:calendar_w
+getMonthDays	ui/widgets/calendar.lua	/^local function getMonthDays(month, year)$/;"	f
+get_anchor	ui/widgets/calendar.lua	/^function calendar_w:get_anchor()$/;"	f	unknown:calendar_w
+get_month_days	ui/widgets/calendar.lua	/^function calendar_w:get_month_days()$/;"	f	unknown:calendar_w
 hex_to_rgb	helpers.lua	/^function helpers.hex_to_rgb(color)$/;"	f	unknown:helpers
 id	modules/animation/subscribable.lua	/^			local id = tostring(func):gsub("function: ", "")$/;"	f
 id	modules/animation/subscribable.lua	/^		local id = tostring(func):gsub("function: ", "")$/;"	f
@@ -68,21 +70,21 @@ inQuad	modules/animation/tween.lua	/^local function inQuad(t, b, c, d)$/;"	f
 inQuart	modules/animation/tween.lua	/^local function inQuart(t, b, c, d)$/;"	f
 inQuint	modules/animation/tween.lua	/^local function inQuint(t, b, c, d)$/;"	f
 inSine	modules/animation/tween.lua	/^local function inSine(t, b, c, d)$/;"	f
-increase_month	widgets/calendar.lua	/^function calendar_w:increase_month()$/;"	f	unknown:calendar_w
-init	themes/first/bars/bars.lua	/^function bar_w:init(s)$/;"	f	unknown:bar_w
-init	widgets/buttons/text.lua	/^function text_button:init(args)$/;"	f	unknown:text_button
-init	widgets/calendar.lua	/^function calendar_w:init(s, args)$/;"	f	unknown:calendar_w
-init	widgets/tags.lua	/^function taglist_w:init(s, args)$/;"	f	unknown:taglist_w
-init	widgets/textclock.lua	/^function textclock_w:init(args)$/;"	f	unknown:textclock_w
+increase_month	ui/widgets/calendar.lua	/^function calendar_w:increase_month()$/;"	f	unknown:calendar_w
+init	ui/bars/statusbar.lua	/^function bar_w:init(s)$/;"	f	unknown:bar_w
+init	ui/buttons/text.lua	/^function text_button:init(args)$/;"	f	unknown:text_button
+init	ui/widgets/calendar.lua	/^function calendar_w:init(s, args)$/;"	f	unknown:calendar_w
+init	ui/widgets/tags.lua	/^function taglist_w:init(s, args)$/;"	f	unknown:taglist_w
+init	ui/widgets/textclock.lua	/^function textclock_w:init(args)$/;"	f	unknown:textclock_w
 initial	modules/animation/init.lua	/^function animation:initial()$/;"	f	unknown:animation
-isLeapYear	widgets/calendar.lua	/^local function isLeapYear(year)$/;"	f
+isLeapYear	ui/widgets/calendar.lua	/^local function isLeapYear(year)$/;"	f
 linear	modules/animation/tween.lua	/^local function linear(t, b, c, d)$/;"	f
 micro_to_milli	modules/animation/init.lua	/^local function micro_to_milli(micro)$/;"	f
+new	helpers.lua	/^local function new(self, ...)$/;"	f
 new	modules/animation/init.lua	/^function animation_manager:new(args)$/;"	f	unknown:animation_manager
 new	modules/animation/init.lua	/^local function new()$/;"	f
 new	modules/animation/tween.lua	/^function tween.new(args)$/;"	f	unknown:tween
-new	rc.lua	/^local function new(self, ...)$/;"	f
-on_press	widgets/calendar.lua	/^		on_press = function()$/;"	f
+on_press	ui/widgets/calendar.lua	/^		on_press = function()$/;"	f
 outBack	modules/animation/tween.lua	/^local function outBack(t, b, c, d, s)$/;"	f
 outBounce	modules/animation/tween.lua	/^local function outBounce(t, b, c, d)$/;"	f
 outCirc	modules/animation/tween.lua	/^local function outCirc(t, b, c, d)$/;"	f
@@ -114,22 +116,23 @@ second_to_micro	modules/animation/init.lua	/^local function second_to_micro(sec)
 second_to_milli	modules/animation/init.lua	/^local function second_to_milli(sec)$/;"	f
 set	modules/animation/init.lua	/^function animation:set(args)$/;"	f	unknown:animation
 set	modules/animation/tween.lua	/^function Tween:set(clock)$/;"	f	unknown:Tween
-set_current_date	widgets/calendar.lua	/^function calendar_w:set_current_date()$/;"	f	unknown:calendar_w
-set_date	widgets/calendar.lua	/^function calendar_w:set_date(date)$/;"	f	unknown:calendar_w
+set_current_date	ui/widgets/calendar.lua	/^function calendar_w:set_current_date()$/;"	f	unknown:calendar_w
+set_date	ui/widgets/calendar.lua	/^function calendar_w:set_date(date)$/;"	f	unknown:calendar_w
 set_instant	modules/animation/init.lua	/^function animation_manager:set_instant(value)$/;"	f	unknown:animation_manager
-set_wallpaper	rc.lua	/^local function set_wallpaper(s)$/;"	f
+set_wallpaper	ui/init.lua	/^local function set_wallpaper(s)$/;"	f
+set_widgets	ui/bars/statusbar.lua	/^function bar_w:set_widgets()$/;"	f	unknown:bar_w
 start	modules/animation/init.lua	/^function animation:start(args)$/;"	f	unknown:animation
 stop	modules/animation/init.lua	/^function animation:stop()$/;"	f	unknown:animation
 subscribable	modules/animation/subscribable.lua	/^local function subscribable(args)$/;"	f
 subscribe	modules/animation/subscribable.lua	/^	function ret:subscribe(func)$/;"	f	unknown:ret
-tag_update	widgets/tags.lua	/^function taglist_w:tag_update(item, tag, index)$/;"	f	unknown:taglist_w
+tag_update	ui/widgets/tags.lua	/^function taglist_w:tag_update(item, tag, index)$/;"	f	unknown:taglist_w
 unsubscribe	modules/animation/subscribable.lua	/^	function ret:unsubscribe(func)$/;"	f	unknown:ret
 update	modules/animation/tween.lua	/^function Tween:update(dt)$/;"	f	unknown:Tween
-update	widgets/buttons/text.lua	/^		update = function(self, pos)$/;"	f
-update	widgets/tags.lua	/^				update		=	function(self, pos)$/;"	f
-update	widgets/tags.lua	/^		update = function(self, pos)$/;"	f
-update	widgets/textclock.lua	/^			update = function(self, pos)$/;"	f
-update_callback	widgets/tags.lua	/^		update_callback = function(item, tag, index, _)$/;"	f
-week_days	widgets/calendar.lua	/^function calendar_w:week_days()$/;"	f	unknown:calendar_w
-widget_template	widgets/tags.lua	/^function taglist_w:widget_template()$/;"	f	unknown:taglist_w
+update	ui/buttons/text.lua	/^		update = function(self, pos)$/;"	f
+update	ui/widgets/tags.lua	/^				update		=	function(self, pos)$/;"	f
+update	ui/widgets/tags.lua	/^		update = function(self, pos)$/;"	f
+update	ui/widgets/textclock.lua	/^			update = function(self, pos)$/;"	f
+update_callback	ui/widgets/tags.lua	/^		update_callback = function(item, tag, index, _)$/;"	f
+week_days	ui/widgets/calendar.lua	/^function calendar_w:week_days()$/;"	f	unknown:calendar_w
+widget_template	ui/widgets/tags.lua	/^function taglist_w:widget_template()$/;"	f	unknown:taglist_w
 ~	modules/animation/tween.lua	/^		if type(easing) ~= "function" then$/;"	f

@@ -50,7 +50,7 @@ function textclock_w:init(args)
 		})
 
 
-		local calendar = require("widgets.calendar")(self.screen)
+		local calendar = require("ui.widgets.calendar")(self.screen, {position = args.calendar_position})
 		
 		self.on_toggle = animation:new({
 			pos = -(calendar.height + 

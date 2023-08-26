@@ -49,4 +49,13 @@ function helpers.rbar(width, height)
 		gshape.rounded_bar(cr, width, height)
 	end
 end
+
+local function new(self, ...)
+  local instance = setmetatable({}, { __index = self })
+  return instance:init(...) or instance end
+
+function class(base)
+    return setmetatable({new = new}, { __call = new, __index = base})
+end
+
 return helpers

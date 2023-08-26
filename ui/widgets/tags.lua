@@ -4,9 +4,9 @@ local naughty		= require("naughty")
 local gears			= require("gears")
 
 local beautiful = require("beautiful")
-local helpers 	= require("../helpers")
+local helpers 	= require("helpers")
 local animation	=	require("modules.animation")
-local keybinds	= require("keys")
+local keybinds	= require("configurations.keys")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
