@@ -2,6 +2,7 @@
 local awful			= require("awful")
 local gears			= require("gears")
 local beautiful = require("beautiful")
+local naughty = require("naughty")
 
 -- CUSTOM INCLUDES
 require(... .. ".notifications")

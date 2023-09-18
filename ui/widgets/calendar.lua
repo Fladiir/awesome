@@ -48,6 +48,7 @@ local function day_widget(text, args)
 			forced_height = dpi(60),
 			bg 			= args.bg,
 			fg			= args.fg,
+			shape		= helpers.rrect(2),
 			widget 	= wibox.container.background
 		})
 

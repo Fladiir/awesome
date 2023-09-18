@@ -9,24 +9,30 @@ local bar_w = class()
 
 function bar_w:set_widgets()
 
-	--self.layout:reset()
 
 	if beautiful.textclock_position == "left" then
-		self.layout.first = self.textclock
+		self.layout.first:add(self.textclock)
 	elseif beautiful.textclock_position == "center" then
-		self.layout.second = self.textclock
+		self.layout.second:add(self.textclock)
 	else
-		self.layout.third = self.textclock
+		self.layout.third:insert(1, self.textclock)
 	end
 
 	if beautiful.taglist_position == "left" then
-		self.layout.first = self.taglist
+		self.layout.first:add(self.taglist)
 	elseif beautiful.taglist_position == "center" then
-		self.layout.second = self.taglist
+		self.layout.second:add(self.taglist)
 	else
-		self.layout.third = self.taglist
+		self.layout.third:insert(1, self.taglist)
 	end
 	
+	if beautiful.utilsbar_position == "left" then
+		self.layout.first:add(self.utilsbar)
+	elseif beautiful.utilsbar_position == "center" then
+		self.layout.second:add(self.utilsbar)
+	else
+		self.layout.third:insert(1, self.utilsbar)
+	end
 end
 
 function bar_w:init(s)
@@ -39,7 +45,11 @@ function bar_w:init(s)
     -- Create a taglist widget
     self.taglist = require("ui.widgets.tags")(s)
 
+		-- Create utilsbar
+		self.utilsbar = require("ui.widgets.utilsbar")(s, { position = beautiful.utilsbar_position })
+
     self.bar = awful.wibar({ 
+				ontop			= true,
 				position = "top", 
 				height = beautiful.wibar_size + beautiful.wibar_top_padding + beautiful.wibar_bot_padding, 
 				screen = s})
@@ -56,15 +66,19 @@ function bar_w:init(s)
 							left = dpi(10),
 							widget = wibox.container.margin
 						},
-						--self.taglist,
+						nil,
+						nil,
 						expand = "none",
 						layout = wibox.layout.fixed.horizontal,
 				},
 				{-- Middle widget
-						--self.textclock,
 						layout = wibox.layout.fixed.horizontal,
 				},
 				{ -- Right widgets
+						{
+							left = dpi(10),
+							widget = wibox.container.margin
+						},
 						layout = wibox.layout.fixed.horizontal,
 						expand = "none",
 				},

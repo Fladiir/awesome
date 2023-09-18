@@ -14,7 +14,7 @@ theme.font                  = "DejavuSansMono Nerd Font Bold 10"
 theme.taglist_buttons_font  = "DejavuSansMono Nerd Font" -- Size applied in taglist.lua
 theme.textclock_font        = "DejavuSansMono Nerd Font Bold 12"
 theme.systray_font          = "DejavuSansMono Nerd Font Bold 14"
-theme.titlebar_font 				= "Noto Color Emoji" -- Dunno where size is applied
+theme.icons_font 				= "Noto Color Emoji" -- Dunno where size is applied
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"
@@ -36,7 +36,8 @@ theme.wibar_top_padding = dpi(5)
 theme.bar_bg = "#0b0c10"
 theme.bar_fg = "#ffffff"
 theme.hoverbg = "#1f222e"
-theme.accent = "#ee2244"
+--theme.accent = "#ee2244"
+theme.accent = "#0099ff"
 theme.fg_disabled = "#666666"
 
 -- [[ WIDGETS
@@ -49,12 +50,19 @@ theme.calendar_popup_width = dpi(500)
 
 -- TAGLIST
 theme.taglist_position	= "left"
+
+-- UTILSBAR
+theme.utilsbar_position = "right"
+
+-- VOLUME
+theme.inactive_bar_color = "#001e33"
+theme.volume_popup_width = dpi(300) 
 -- ]]
 
 theme.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }
 
 theme.taglist_occupied_color = "#dddddd"
-theme.taglist_focused_color = "#ee2244"
+theme.taglist_focused_color = theme.accent
 theme.taglist_urgent_color = "#00ff00"
 theme.taglist_empty_color = "#34384c"
 

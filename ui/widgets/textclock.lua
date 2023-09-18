@@ -18,7 +18,7 @@ function textclock_w:init(args)
 						font    = self.font,
 						widget  = wibox.widget.textclock
 				},
-				shape = helpers.rrect(5),
+				shape = helpers.rrect(4),
         widget = wibox.container.background
     })
 
@@ -53,14 +53,14 @@ function textclock_w:init(args)
 		local calendar = require("ui.widgets.calendar")(self.screen, {position = args.calendar_position})
 		
 		self.on_toggle = animation:new({
-			pos = -(calendar.height + 
-				beautiful.wibar_size + beautiful.wibar_top_padding + beautiful.wibar_bot_padding),
+			pos = -500, 
 			duration = 0.5,
 			easing = animation.easing.inOutQuad,
 			update = function(self, pos)
 				calendar.y = pos
 			end,
 		})
+
 		calendar.y = -500
 
 		w:connect_signal("button::press", function(button)
