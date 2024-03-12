@@ -10,9 +10,12 @@ local utilsbar_w = class()
 
 function utilsbar_w:init(s, args)
 
-	self.volume = require("ui.widgets.utils.volume")(s, {position = args.position})
+	self.volume 		= require("ui.widgets.utils.volume")(s, {position = args.position})
+	self.microphone = require("ui.widgets.utils.microphone")(s, {position = args.position})
+
 	self.w = wibox.widget({
 		{
+			self.microphone,
 			self.volume,
 			spacing = dpi(10),
 			layout = wibox.layout.fixed.horizontal,

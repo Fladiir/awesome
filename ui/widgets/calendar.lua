@@ -98,7 +98,7 @@ function calendar_w:get_month_days()
 
 	for i = 1, getMonthDays(self.date.month, self.date.year) do
 		if (current.year == self.date.year and current.month == self.date.month and current.day == i) then
-			self.calendar_grid:add(day_widget(i, { bg = beautiful.accent, fg = beautiful.bar_fg }))
+			self.calendar_grid:add(day_widget(i, { bg = beautiful.accent, fg = beautiful.on_accent }))
 		else
 			self.calendar_grid:add(day_widget(i, { bg = beautiful.bar_bg, fg = beautiful.bar_fg }))
 		end

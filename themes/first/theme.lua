@@ -36,8 +36,10 @@ theme.wibar_top_padding = dpi(5)
 theme.bar_bg = "#0b0c10"
 theme.bar_fg = "#ffffff"
 theme.hoverbg = "#1f222e"
---theme.accent = "#ee2244"
-theme.accent = "#0099ff"
+theme.accent = "#ee2244"
+--theme.accent = "#0099ff"
+--theme.accent = "#50effc"
+theme.on_accent = "#000000"
 theme.fg_disabled = "#666666"
 
 -- [[ WIDGETS
@@ -56,7 +58,10 @@ theme.utilsbar_position = "right"
 
 -- VOLUME
 theme.inactive_bar_color = "#001e33"
-theme.volume_popup_width = dpi(300) 
+theme.volume_popup_width = dpi(500) 
+
+-- MICROPHONE
+theme.microphone_popup_width = dpi(500) 	
 -- ]]
 
 theme.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }

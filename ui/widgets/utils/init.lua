@@ -1,4 +1,5 @@
 return {
-	volume	= require(... .. ".volume"),
+	volume			= require(... .. ".volume"),
+	microphone	= require(... .. ".microphone"),
 	-- network	= require(... .. ".network")(s, {}),
 }

@@ -38,9 +38,10 @@ end
 function bar_w:init(s)
    
     -- Create a textclock widget
-    self.textclock = require("ui.widgets.textclock")(
-			{screen = s, font = beautiful.textclock_font, calendar_position = beautiful.calendar_position }
-		)
+    self.textclock = require("ui.widgets.textclock")(s,
+			{font = beautiful.textclock_font, calendar_position = beautiful.calendar_position,
+				hover_bg = beautiful.accent, hover_fg = beautiful.on_accent		
+		})
     
     -- Create a taglist widget
     self.taglist = require("ui.widgets.tags")(s)

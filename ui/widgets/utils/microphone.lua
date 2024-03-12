@@ -10,12 +10,12 @@ local animation = require("modules.animation")
 local helpers = require("helpers")
 local tbtn		= require("ui.buttons.text")
 
-local volume_w = class()
+local microphone_w = class()
 
-local vol_icon 		= "󰕾"
-local muted_icon	= "󰖁"
+local mic_icon 		= "󰍬"
+local muted_icon	= "󰍭"
 
-function volume_w:toggle_slider()
+function microphone_w:toggle_slider()
 	if self.slider_toggled then
 		self.on_toggle:set(dpi(0))
 		self.update_timer:stop()
@@ -27,7 +27,7 @@ function volume_w:toggle_slider()
 	self.slider_toggled = not self.slider_toggled
 end
 
-function volume_w:close_slider()
+function microphone_w:close_slider()
 	if self.slider_toggled then
 		self.on_toggle:set(dpi(0))
 		self.update_timer:stop()
@@ -35,22 +35,22 @@ function volume_w:close_slider()
 	end
 end
 
-function volume_w:toggle_mute()
+function microphone_w:toggle_mute()
 	if self.muted then
-		awful.spawn.with_shell("pulsemixer --unmute")
-		self.button.widget.widget.text = vol_icon
+		awful.spawn.with_shell("pulsemixer --unmute --id source-" .. self.default_source)
+		self.button.widget.widget.text = mic_icon
 		self.muted = false
 	else
-		awful.spawn.with_shell("pulsemixer --mute")
+		awful.spawn.with_shell("pulsemixer --mute --id source-" .. self.default_source)
 		self.button.widget.widget.text = muted_icon
 		self.muted = true 
 	end
 	--self.muted = not self.muted
 end
 
-function volume_w:get_mute()
+function microphone_w:get_mute()
 	awful.spawn.easy_async_with_shell(
-		"pulsemixer --get-mute", 
+		"pulsemixer --get-mute --id source-" .. self.default_source, 
 		function(stdout)
 			local val = tonumber(stdout)
 			if val == 0 then
@@ -58,14 +58,14 @@ function volume_w:get_mute()
 			else
 				self.muted = true
 			end
-			self.button.widget.widget.text = self.muted and muted_icon or vol_icon
+			self.button.widget.widget.text = self.muted and muted_icon or mic_icon
 		end
 	)
 end
 
-function volume_w:update_slider(slider)
+function microphone_w:update_slider(slider)
 	awful.spawn.easy_async_with_shell(
-		"pulsemixer --get-volume | awk -F' ' '{print $1}'", 
+		"pulsemixer --get-volume --id source-" .. self.default_source, 
 		function(stdout)
 			local val = stdout
 			if(val ~= nil) then
@@ -77,8 +77,8 @@ function volume_w:update_slider(slider)
 	)
 end
 
-function volume_w:populate_popup(panel)
-	local function sink_widget(text, val, style)
+function microphone_w:populate_popup(panel)
+	local function source_widget(text, val, style)
 		local w = tbtn({
 			text =  text,
 			halign = "left",
@@ -92,13 +92,13 @@ function volume_w:populate_popup(panel)
 			hoverbg = beautiful.accent,
 			hoverfg = beautiful.on_accent,
 			on_press = function()
-				awful.spawn.with_line_callback("pactl set-default-sink " .. val, {
+				awful.spawn.with_line_callback("pactl set-default-source " .. val, {
 				exit = function() 
 					awful.screen.connect_for_each_screen(function(o)
-						o.volume:get_mute()
-						o.volume:close_popup()
+						o.microphone:get_mute()
+						o.microphone:close_popup()
 						--helpers.close_popups()
-						o.volume.default_sink = val
+						o.microphone.default_source = val
 					end)
 				end})
 			end
@@ -109,24 +109,24 @@ function volume_w:populate_popup(panel)
 	
 	panel.widget.widget:reset()
 
-	awful.spawn.with_line_callback("pulsemixer --list-sinks", {
+	awful.spawn.with_line_callback("pulsemixer --list-sources", {
 		stdout = function(line)
-			local sink_id = string.match(line, "ID:%s+sink[-](%d-)%f[,]")
+			local source_id = string.match(line, "ID:%s+source[-](%d-)%f[,]")
 			local text = string.match(line, "Name:%s+(.-)%f[,]")
-			if (sink_id ~= nil and text ~= nil) then
-				panel.widget.widget:add(sink_widget(text, sink_id, 
-					{ bg = (tonumber(sink_id) == tonumber(self.default_sink)) and beautiful.accent or nil,
-						fg = (tonumber(sink_id) == tonumber(self.default_sink)) and beautiful.on_accent or nil
+			if (source_id ~= nil and text ~= nil) then
+				panel.widget.widget:add(source_widget(text, source_id, 
+					{ bg = (tonumber(source_id) == tonumber(self.default_source)) and beautiful.accent or nil,
+						fg = (tonumber(source_id) == tonumber(self.default_source)) and beautiful.on_accent or nil
 					}))
 			end
 		end
 	})
 end
 
-function volume_w:close_popup()
+function microphone_w:close_popup()
 	if self.popup_toggled then
 		self.on_popup_open:set(
-		-(self.vol_popup.height +
+		-(self.mic_popup.height +
 			beautiful.wibar_size +
 			beautiful.wibar_top_padding +
 			beautiful.wibar_bot_padding
@@ -136,18 +136,18 @@ function volume_w:close_popup()
 	end
 end
 
-function volume_w:toggle_popup()
+function microphone_w:toggle_popup()
 	if self.popup_toggled then
 		self.on_popup_open:set(
-		-(self.vol_popup.height +
+		-(self.mic_popup.height +
 			beautiful.wibar_size +
 			beautiful.wibar_top_padding +
 			beautiful.wibar_bot_padding
 			)
 		)
 	else
-		self:populate_popup(self.vol_popup)
-		self.vol_popup:move_next_to(mouse.current_widget_geometry)
+		self:populate_popup(self.mic_popup)
+		self.mic_popup:move_next_to(mouse.current_widget_geometry)
 		self.on_popup_open:set(
 			beautiful.wibar_size +
 			beautiful.wibar_top_padding +
@@ -157,7 +157,7 @@ function volume_w:toggle_popup()
 	self.popup_toggled = not self.popup_toggled
 end
 
-function volume_w:get_anchor()
+function microphone_w:get_anchor()
 	if self.position == "left" then
 		return "front"
 	elseif self.position == "center" then
@@ -169,12 +169,13 @@ function volume_w:get_anchor()
 	end
 end
 
-function volume_w:init(s,args)
+function microphone_w:init(s,args)
 	self.slider_toggled = false
 	self.muted = false 
 	self.popup_toggled = false
 	self.screen = s
 	self.position = args.position
+	--self.default_source = 68
 
 	self.slider = wibox.widget {
 		screen							= s,
@@ -191,14 +192,16 @@ function volume_w:init(s,args)
     widget              = wibox.widget.slider,
 	}
 	
-
-	awful.spawn.easy_async_with_shell("pactl list sinks short | grep $(pactl get-default-sink) | cut -f1",
+	awful.spawn.easy_async_with_shell("pactl list sources short | grep $(pactl get-default-source) | cut -f1",
 		function(line) 
-			self.default_sink = line 
+			self.default_source = line 
+			naughty.notify({ title = self.default_source })
 			self:get_mute()
 			self:update_slider(self.slider)
 		end
 	)
+
+
 
 	self.on_toggle = animation:new({
 		pos = self.slider.forced_width,
@@ -219,7 +222,7 @@ function volume_w:init(s,args)
 	})
 
 	self.button = tbtn({
-		text = self.muted and muted_icon or vol_icon,
+		text = self.muted and muted_icon or mic_icon,
 		font = beautiful.icons_font .. " 26",
 		bg = beautiful.bar_bg,
 		fg = beautiful.bar_fg,
@@ -239,8 +242,8 @@ function volume_w:init(s,args)
 				end
 			elseif button == 2 then
 				awful.screen.connect_for_each_screen(function(o)
-					o.volume:toggle_mute()
-					o.volume:close_slider()
+					o.microphone:toggle_mute()
+					o.microphone:close_slider()
 				end)
 			elseif button == 3 then
 				helpers.close_popups()
@@ -249,15 +252,15 @@ function volume_w:init(s,args)
 		end
 	})
 	
-	self.vol_popup = awful.popup {
+	self.mic_popup = awful.popup {
 		screen							= s,
 		ontop								= true,
 		visible							= true,
 		type								= "dock",
 		bg									= beautiful.bar_bg,
 		fg									= beautiful.bar_fg,
-		minimum_width				= beautiful.volume_popup_width,
-		maximum_width				= beautiful.volume_popup_width,
+		minimum_width				= beautiful.microphone_popup_width,
+		maximum_width				= beautiful.microphone_popup_width,
 		preferred_anchors		= self:get_anchor(),
 		widget 	= {
 				{
@@ -274,7 +277,7 @@ function volume_w:init(s,args)
 		duration = 0.5,
 		easing = animation.easing.inOutQuad,
 		update = function(item, pos)
-			self.vol_popup.y = pos
+			self.mic_popup.y = pos
 		end,
 	})
 
@@ -300,7 +303,7 @@ function volume_w:init(s,args)
 	}
 
 	self.slider:connect_signal("property::value", function(item, val)
-		awful.spawn.with_shell("pulsemixer --set-volume " .. val)
+		awful.spawn.with_shell("pulsemixer --set-volume " .. val .. " --id source-" .. self.default_source)
 	end)
 	
 	self.slider:connect_signal("button::press", function()
@@ -311,10 +314,10 @@ function volume_w:init(s,args)
 		self.update_timer:start()
 	end)
 
-	s.volume = self
+	s.microphone = self
 	
 	return self.w
 end
 
 
-return volume_w
+return microphone_w

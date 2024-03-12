@@ -90,12 +90,7 @@ function animation:start(args)
 	local duration = is_table and (args.duration or self.duration) or self.duration
 	local easing = is_table and (args.easing or self.easing) or self.easing
     
-    --[[
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "aaaaa",
-                     text = tostring(target["color"]["g"]) })
-                     ]]--
-    duration = self._private.anim_manager._private.instant == true and 0.01 or duration
+  duration = self._private.anim_manager._private.instant == true and 0.01 or duration
 
 	if self.tween == nil or self.reset_on_stop == true then
 		self.tween = tween.new({

@@ -18,6 +18,9 @@ function text_button:set_text(text)
 end
 
 function text_button:init(args)
+	self.hoverbg = args.hoverbg or beautiful.hoverbg
+	self.hoverfg = args.hoverfg or beautiful.bar_fg
+
 	self.button = wibox.widget({
 		{
 			{
@@ -42,16 +45,25 @@ function text_button:init(args)
 	})
 
 	self.hover_animation = animation:new({
-		pos = helpers.hex_to_rgb(beautiful.bar_bg),
+		pos = helpers.hex_to_rgb(args.bg),
 		duration = 0.2,
 		easing = animation.easing.linear,
 		update = function(item, pos)
 			self.button.bg = helpers.rgb_to_hex(pos)
+		end,
+	})
+
+	self.hover_fg_animation = animation:new({
+		pos = helpers.hex_to_rgb(args.fg),
+		duration = 0.2,
+		easing = animation.easing.linear,
+		update = function(item, pos)
+			self.button.fg = helpers.rgb_to_hex(pos)
 		end,
 	})
 
 	self.hover_lost_animation = animation:new({
-		pos = helpers.hex_to_rgb(beautiful.hoverbg),
+		pos = helpers.hex_to_rgb(self.hoverbg),
 		duration = 0.2,
 		easing = animation.easing.linear,
 		update = function(item, pos)
@@ -59,12 +71,23 @@ function text_button:init(args)
 		end,
 	})
 
+	self.hover_fg_lost_animation = animation:new({
+		pos = helpers.hex_to_rgb(self.hoverfg),
+		duration = 0.2,
+		easing = animation.easing.linear,
+		update = function(item, pos)
+			self.button.fg = helpers.rgb_to_hex(pos)
+		end,
+	})
+
 	self.button:connect_signal("mouse::enter", function()
-		self.hover_animation:set(helpers.hex_to_rgb(beautiful.hoverbg))
+		self.hover_animation:set(helpers.hex_to_rgb(self.hoverbg))
+		self.hover_fg_animation:set(helpers.hex_to_rgb(self.hoverfg))
 	end)
 
 	self.button:connect_signal("mouse::leave", function()
 		self.hover_lost_animation:set(helpers.hex_to_rgb(args.bg))
+		self.hover_fg_lost_animation:set(helpers.hex_to_rgb(args.fg))
 	end)
 
 	self.button:connect_signal("button::press", args.on_press or function() end)

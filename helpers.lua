@@ -1,6 +1,7 @@
 
 local naughty = require("naughty")
-local gshape = require("gears.shape")
+local gshape 	= require("gears.shape")
+local awful		= require("awful")
 local helpers = {}
 
 local function round(x, p)
@@ -58,4 +59,12 @@ function class(base)
     return setmetatable({new = new}, { __call = new, __index = base})
 end
 
+function helpers.close_popups()
+	awful.screen.connect_for_each_screen(function(s)
+		s.volume:close_popup()
+		s.microphone:close_popup()
+		s.textclock:close_calendar()
+	end)
+end
+ 
 return helpers
