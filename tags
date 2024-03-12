@@ -14,6 +14,7 @@
 !_TAG_KIND_DESCRIPTION!Markdown	S,subsection	/level 2 sections/
 !_TAG_KIND_DESCRIPTION!Markdown	T,l4subsection	/level 4 sections/
 !_TAG_KIND_DESCRIPTION!Markdown	c,chapter	/chapters/
+!_TAG_KIND_DESCRIPTION!Markdown	h,hashtag	/hashtags/
 !_TAG_KIND_DESCRIPTION!Markdown	n,footnote	/footnotes/
 !_TAG_KIND_DESCRIPTION!Markdown	s,section	/sections/
 !_TAG_KIND_DESCRIPTION!Markdown	t,subsubsection	/level 3 sections/
@@ -23,35 +24,43 @@
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_OUTPUT_VERSION	0.0	/current.age/
 !_TAG_PARSER_VERSION!Lua	0.0	/current.age/
-!_TAG_PARSER_VERSION!Markdown	0.0	/current.age/
+!_TAG_PARSER_VERSION!Markdown	1.1	/current.age/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
 !_TAG_PROC_CWD	/home/jotun/dev/awesome/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	6.0.0	/p6.0.20221218.0/
+!_TAG_PROGRAM_VERSION	6.1.0	/v6.1.0/
 Awesomewm configuration and themes	README.md	/^# Awesomewm configuration and themes$/;"	c
 abort	modules/animation/init.lua	/^function animation:abort(reset)$/;"	f	unknown:animation
 calculatePAS	modules/animation/tween.lua	/^local function calculatePAS(p, a, c, d)$/;"	f
+callback	ui/widgets/utils/microphone.lua	/^		callback	= function()$/;"	f
 callback	ui/widgets/utils/volume.lua	/^		callback	= function()$/;"	f
 checkNewParams	modules/animation/tween.lua	/^local function checkNewParams(initial, duration, subject, target, easing)$/;"	f
 checkSubjectAndTargetRecursively	modules/animation/tween.lua	/^local function checkSubjectAndTargetRecursively(subject, target, path)$/;"	f
 class	helpers.lua	/^function class(base)$/;"	f
 clip	helpers.lua	/^local function clip(num, min_num, max_num)$/;"	f
+close_calendar	ui/widgets/textclock.lua	/^function textclock_w:close_calendar()$/;"	f	unknown:textclock_w
+close_popup	ui/widgets/utils/microphone.lua	/^function microphone_w:close_popup()$/;"	f	unknown:microphone_w
 close_popup	ui/widgets/utils/volume.lua	/^function volume_w:close_popup()$/;"	f	unknown:volume_w
+close_popups	helpers.lua	/^function helpers.close_popups()$/;"	f	unknown:helpers
+close_slider	ui/widgets/utils/microphone.lua	/^function microphone_w:close_slider()$/;"	f	unknown:microphone_w
 close_slider	ui/widgets/utils/volume.lua	/^function volume_w:close_slider()$/;"	f	unknown:volume_w
 colorize_text	helpers.lua	/^function helpers.colorize_text(txt, fg, alpha)$/;"	f	unknown:helpers
 copyTables	modules/animation/tween.lua	/^local function copyTables(destination, keysTable, valuesTable)$/;"	f
 create_callback	ui/widgets/tags.lua	/^		create_callback = function(item, tag, index, _)$/;"	f
 day_widget	ui/widgets/calendar.lua	/^local function day_widget(text, args)$/;"	f
 decrease_month	ui/widgets/calendar.lua	/^function calendar_w:decrease_month()$/;"	f	unknown:calendar_w
+exit	ui/widgets/utils/microphone.lua	/^				exit = function() $/;"	f
 exit	ui/widgets/utils/volume.lua	/^				exit = function() $/;"	f
 fire	modules/animation/subscribable.lua	/^	function ret:fire(...)$/;"	f	unknown:ret
 getEasingFunction	modules/animation/tween.lua	/^local function getEasingFunction(easing)$/;"	f
 getMonthDays	ui/widgets/calendar.lua	/^local function getMonthDays(month, year)$/;"	f
 get_anchor	ui/widgets/calendar.lua	/^function calendar_w:get_anchor()$/;"	f	unknown:calendar_w
+get_anchor	ui/widgets/utils/microphone.lua	/^function microphone_w:get_anchor()$/;"	f	unknown:microphone_w
 get_anchor	ui/widgets/utils/volume.lua	/^function volume_w:get_anchor()$/;"	f	unknown:volume_w
 get_month_days	ui/widgets/calendar.lua	/^function calendar_w:get_month_days()$/;"	f	unknown:calendar_w
+get_mute	ui/widgets/utils/microphone.lua	/^function microphone_w:get_mute()$/;"	f	unknown:microphone_w
 get_mute	ui/widgets/utils/volume.lua	/^function volume_w:get_mute()$/;"	f	unknown:volume_w
 hex_to_rgb	helpers.lua	/^function helpers.hex_to_rgb(color)$/;"	f	unknown:helpers
 id	modules/animation/subscribable.lua	/^			local id = tostring(func):gsub("function: ", "")$/;"	f
@@ -81,7 +90,8 @@ init	ui/bars/statusbar.lua	/^function bar_w:init(s)$/;"	f	unknown:bar_w
 init	ui/buttons/text.lua	/^function text_button:init(args)$/;"	f	unknown:text_button
 init	ui/widgets/calendar.lua	/^function calendar_w:init(s, args)$/;"	f	unknown:calendar_w
 init	ui/widgets/tags.lua	/^function taglist_w:init(s, args)$/;"	f	unknown:taglist_w
-init	ui/widgets/textclock.lua	/^function textclock_w:init(args)$/;"	f	unknown:textclock_w
+init	ui/widgets/textclock.lua	/^function textclock_w:init(s, args)$/;"	f	unknown:textclock_w
+init	ui/widgets/utils/microphone.lua	/^function microphone_w:init(s,args)$/;"	f	unknown:microphone_w
 init	ui/widgets/utils/network.lua	/^function network_w:init(s, args)$/;"	f	unknown:network_w
 init	ui/widgets/utils/volume.lua	/^function volume_w:init(s,args)$/;"	f	unknown:volume_w
 init	ui/widgets/utilsbar.lua	/^function utilsbar_w:init(s, args)$/;"	f	unknown:utilsbar_w
@@ -94,6 +104,8 @@ new	modules/animation/init.lua	/^function animation_manager:new(args)$/;"	f	unkn
 new	modules/animation/init.lua	/^local function new()$/;"	f
 new	modules/animation/tween.lua	/^function tween.new(args)$/;"	f	unknown:tween
 on_press	ui/widgets/calendar.lua	/^		on_press = function()$/;"	f
+on_press	ui/widgets/utils/microphone.lua	/^			on_press = function()$/;"	f
+on_press	ui/widgets/utils/microphone.lua	/^		on_press = function(item, lx, ly, button)$/;"	f
 on_press	ui/widgets/utils/volume.lua	/^			on_press = function()$/;"	f
 on_press	ui/widgets/utils/volume.lua	/^		on_press = function(item, lx, ly, button)$/;"	f
 outBack	modules/animation/tween.lua	/^local function outBack(t, b, c, d, s)$/;"	f
@@ -118,6 +130,7 @@ outQuint	modules/animation/tween.lua	/^local function outQuint(t, b, c, d)$/;"	f
 outSine	modules/animation/tween.lua	/^local function outSine(t, b, c, d)$/;"	f
 performEasing	modules/animation/tween.lua	/^local function performEasing(table, initial, target, clock, duration, easing)$/;"	f
 performEasingOnSubject	modules/animation/tween.lua	/^local function performEasingOnSubject(subject, target, initial, clock, duration, easing)$/;"	f
+populate_popup	ui/widgets/utils/microphone.lua	/^function microphone_w:populate_popup(panel)$/;"	f	unknown:microphone_w
 populate_popup	ui/widgets/utils/volume.lua	/^function volume_w:populate_popup(panel)$/;"	f	unknown:volume_w
 rbar	helpers.lua	/^function helpers.rbar(width, height)$/;"	f	unknown:helpers
 reset	modules/animation/tween.lua	/^function Tween:reset()$/;"	f	unknown:Tween
@@ -135,14 +148,19 @@ set_text	ui/buttons/text.lua	/^function text_button:set_text(text)$/;"	f	unknown
 set_wallpaper	ui/init.lua	/^local function set_wallpaper(s)$/;"	f
 set_widgets	ui/bars/statusbar.lua	/^function bar_w:set_widgets()$/;"	f	unknown:bar_w
 sink_widget	ui/widgets/utils/volume.lua	/^	local function sink_widget(text, val, style)$/;"	f
+source_widget	ui/widgets/utils/microphone.lua	/^	local function source_widget(text, val, style)$/;"	f
 start	modules/animation/init.lua	/^function animation:start(args)$/;"	f	unknown:animation
+stdout	ui/widgets/utils/microphone.lua	/^		stdout = function(line)$/;"	f
 stdout	ui/widgets/utils/volume.lua	/^		stdout = function(line)$/;"	f
 stop	modules/animation/init.lua	/^function animation:stop()$/;"	f	unknown:animation
 subscribable	modules/animation/subscribable.lua	/^local function subscribable(args)$/;"	f
 subscribe	modules/animation/subscribable.lua	/^	function ret:subscribe(func)$/;"	f	unknown:ret
 tag_update	ui/widgets/tags.lua	/^function taglist_w:tag_update(item, tag, index)$/;"	f	unknown:taglist_w
+toggle_mute	ui/widgets/utils/microphone.lua	/^function microphone_w:toggle_mute()$/;"	f	unknown:microphone_w
 toggle_mute	ui/widgets/utils/volume.lua	/^function volume_w:toggle_mute()$/;"	f	unknown:volume_w
+toggle_popup	ui/widgets/utils/microphone.lua	/^function microphone_w:toggle_popup()$/;"	f	unknown:microphone_w
 toggle_popup	ui/widgets/utils/volume.lua	/^function volume_w:toggle_popup()$/;"	f	unknown:volume_w
+toggle_slider	ui/widgets/utils/microphone.lua	/^function microphone_w:toggle_slider()$/;"	f	unknown:microphone_w
 toggle_slider	ui/widgets/utils/volume.lua	/^function volume_w:toggle_slider()$/;"	f	unknown:volume_w
 unsubscribe	modules/animation/subscribable.lua	/^	function ret:unsubscribe(func)$/;"	f	unknown:ret
 update	modules/animation/tween.lua	/^function Tween:update(dt)$/;"	f	unknown:Tween
@@ -150,8 +168,10 @@ update	ui/buttons/text.lua	/^		update = function(item, pos)$/;"	f
 update	ui/widgets/tags.lua	/^				update		=	function(self, pos)$/;"	f
 update	ui/widgets/tags.lua	/^		update = function(self, pos)$/;"	f
 update	ui/widgets/textclock.lua	/^			update = function(self, pos)$/;"	f
+update	ui/widgets/utils/microphone.lua	/^		update = function(item, pos)$/;"	f
 update	ui/widgets/utils/volume.lua	/^		update = function(item, pos)$/;"	f
 update_callback	ui/widgets/tags.lua	/^		update_callback = function(item, tag, index, _)$/;"	f
+update_slider	ui/widgets/utils/microphone.lua	/^function microphone_w:update_slider(slider)$/;"	f	unknown:microphone_w
 update_slider	ui/widgets/utils/volume.lua	/^function volume_w:update_slider(slider)$/;"	f	unknown:volume_w
 week_days	ui/widgets/calendar.lua	/^function calendar_w:week_days()$/;"	f	unknown:calendar_w
 widget_template	ui/widgets/tags.lua	/^function taglist_w:widget_template()$/;"	f	unknown:taglist_w
