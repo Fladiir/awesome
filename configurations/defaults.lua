@@ -1,4 +1,4 @@
-terminal 		= "st"
+terminal 		= "urxvt"
 browser 		= "firefox"
 discord			= "discord"
 editor 			= os.getenv("EDITOR") or "nano"

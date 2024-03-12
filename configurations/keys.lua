@@ -2,6 +2,7 @@ local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 local menubar = require("menubar")
+local helpers = require("helpers")
 
 -- MODKEY
 modkey = "Mod4"
@@ -47,7 +48,12 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", function () client.focus:kill() end,
+    awful.key({ modkey, "Shift"   }, "q", 
+			function () 
+				if client.focus ~= nil then
+					client.focus:kill() 
+				end
+			end,
               {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
@@ -122,9 +128,15 @@ root.keys(globalkeys)
 -- {{{ Mouse bindings
 
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 7, awful.tag.viewnext),
-    awful.button({ }, 8, awful.tag.viewprev)
+    awful.button({ }, 1, function () 
+			helpers.close_popups()
+		end),
+    awful.button({ }, 2, function () 
+			helpers.close_popups()
+		end),
+    awful.button({ }, 3, function () 
+			helpers.close_popups()
+		end)
 )) 
 -- }}}
 
@@ -132,15 +144,18 @@ local keybinds = {}
 
 keybinds.clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
+			helpers.close_popups()
+      c:emit_signal("request::activate", "mouse_click", {raise = true})
     end),
     awful.button({ modkey }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-        awful.mouse.client.move(c)
+			--helpers.close_popups()
+      c:emit_signal("request::activate", "mouse_click", {raise = true})
+      awful.mouse.client.move(c)
     end),
     awful.button({ modkey }, 3, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-        awful.mouse.client.resize(c)
+			--helpers.close_popups()
+      c:emit_signal("request::activate", "mouse_click", {raise = true})
+      awful.mouse.client.resize(c)
     end)
 )
 
